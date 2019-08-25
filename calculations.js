@@ -1,7 +1,6 @@
 const intersections = require('./data/intersections');
 
 function Calculations(lat, lon) {
-  console.log('Calculations:')
   let nearest = false;
 
   for (let i = 0; i < intersections.length; i++) {
@@ -21,7 +20,6 @@ function Calculations(lat, lon) {
   const direction = calcCardinal(bearing);
   nearest.bearing = bearing;
   nearest.direction = direction;
-  console.log('nearest:', nearest)
   return nearest;
 }
 
