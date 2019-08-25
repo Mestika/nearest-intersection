@@ -1,11 +1,11 @@
-const Calculations = require('../calculations');
+const calculations = require('../helpers/calculations');
 
 class IntersectionController {
 
   findNearest(req, res){
     const lat = parseFloat(req.params.lat);
     const lon = parseFloat(req.params.lon);
-    let result = new Calculations(lat, lon);
+    let result = calculations(lat, lon);
     return res.status(200).send({
       success: 'true',
       message: 'Nearest Intersection Found',
@@ -14,5 +14,6 @@ class IntersectionController {
   }
 }
 
-const intersectionCtrl = new IntersectionController();
-module.exports = intersectionCtrl;
+const IntersectionCtrl = new IntersectionController();
+module.exports = IntersectionCtrl;
+
