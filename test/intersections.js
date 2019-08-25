@@ -11,7 +11,8 @@ let Intersections = require('../routes/');
 
 let testSuite = {
   lat: 37.7958527,
-  lot: -122.4036102
+  lot: -122.4036102,
+  lot_wrong: 'longitude'
 };
 
 chai.use(chaiHttp);
@@ -24,7 +25,8 @@ describe('Nearest Intersection', () => {
       chai.request(app)
         .get('/api/nearest/' + testSuite.lat +'/' + testSuite.lot)
         .end((err, res) => {
-          let result = res.body.result;
+          assert.isOk(res.ok);
+          const result = res.body.result;
           /**
            * RESULT SHOULD BE:
             {
@@ -46,7 +48,7 @@ describe('Nearest Intersection', () => {
            * Assert is only one way to test "assertions".
            * Another way could be to use `expect` or `should`
            */
-          assert.equal(res.body.success, 'true');
+
           assert.isObject(result);
           assert.exists(result.distance);
           assert.exists(result.bearing);
@@ -73,6 +75,8 @@ describe('Nearest Intersection', () => {
 
           /**
            * Other testing method is `should`
+           * however, this modify object prototype so it is not recommended
+           *
            * result.should.be.a('object'),
            * result.should.have.property('distance'),
            * result.should.have.property('bearing'),
@@ -84,4 +88,37 @@ describe('Nearest Intersection', () => {
         })
     })
   })
+
+  describe('Add wrong longitude type', () => {
+    it('should get the nearest intersection based on the coordinates', (done) => {
+      chai.request(app)
+        .get('/api/nearest/' + testSuite.lat + '/' + testSuite.lot_wrong)
+        .end((err, res) => {
+          assert.isNotOk(res.ok);
+          assert.equal(res.status, 400);
+          assert.exists(res.body.error);
+          assert.equal(res.body.error.message, 'latitude or longitude is not a valid number')
+          done();
+        })
+    })
+  })
+
+  describe('Check 404', () => {
+    it('when hitting a "Page Not Found" 404 endpoint', (done) => {
+      chai.request(app)
+        .get('/api/not/exists/' + testSuite.lat + '/' + testSuite.lot)
+        .end((err, res) => {
+          assert.isNotOk(res.ok);
+          assert.equal(res.status, 404);
+          assert.exists(res.body.error);
+          assert.equal(res.body.error.message, 'Not found')
+          done();
+        })
+    })
+  })
 })
+
+/**
+ * Several other test-cases would be added to a real-world system but these
+ * gives an overview of the most basic tests of the core functionalities
+ */
