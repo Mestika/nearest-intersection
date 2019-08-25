@@ -9,7 +9,7 @@ class IntersectionController {
     if (isNaN(lat) || isNaN(lon)) {
       const err = new Error();
       err.status = 400;
-      err.message = 'Latitude or Longtitude is not a valid number'
+      err.message = 'latitude or longitude is not a valid number'
       throw err;
     }
 
