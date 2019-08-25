@@ -7,7 +7,7 @@ let chaiHttp = require('chai-http');
 let app = require('../app');
 let should = chai.should();
 
-let Intersections = require('../routes/intersections');
+let Intersections = require('../routes/');
 
 let testSuite = {
   lat: 37.7958527,
