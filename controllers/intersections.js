@@ -13,7 +13,7 @@ class IntersectionController {
       throw err;
     }
 
-    let result = calculations(lat, lon);
+    const result = calculations(lat, lon);
     return res.status(200).send({
       success: 'true',
       message: 'Nearest Intersection Found',
