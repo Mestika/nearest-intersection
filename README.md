@@ -22,7 +22,7 @@ Via NPM:
 ## Usage
 
 Use Postman, CURL or other HTTP Request method and send coordinates to:
-`http://localhost:3100/api/nearest/latitude/longitude
+`http://localhost:3100/api/nearest/latitude/longitude`
 
 ## Testing
 `npm test`
