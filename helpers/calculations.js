@@ -1,6 +1,6 @@
-const intersections = require('./data/intersections');
+const intersections = require('./../data/intersections');
 
-function Calculations(lat, lon) {
+function calculations(lat, lon) {
   let nearest = false;
 
   for (let i = 0; i < intersections.length; i++) {
@@ -23,7 +23,7 @@ function Calculations(lat, lon) {
   return nearest;
 }
 
-module.exports = Calculations;
+module.exports = calculations;
 
 /**
  * calcDistance calculates the distance between two coordinates using the
